@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- AI GEN HTML and CSS -->
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='styles.css') }}">
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethan's Family Dinner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="home">
+
+        <main class="main-content">
+            <section class="hero-section">
+                <h2 class="hero-title">The COMPLEX</h2>
+                <h3 class="hero-subtitle">Open for STUDY HOURS</h3>
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/31a569e9384cf12d71f2a40b57c1986cc051df85?placeholderIfAbsent=true&apiKey=9dc4f8adc48346e396b1d43abddb888e" class="hero-image" alt="Study space" />
+                <p class="hero-hours">From 8:00 AM to 10:00 PM</p>
+            </section>
+
+            <section class="notification-section">
+                <div class="notification-content">
+                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/a4e8e65037374b35272efa9d63f6de3b9e5b720c?placeholderIfAbsent=true&apiKey=9dc4f8adc48346e396b1d43abddb888e" class="notification-bg" alt="Background" />
+                    <p class="notification-text">Turn on notifications and never miss an event.</p>
+                </div>
+            </section>
+
+            <section class="events-section">
+                <div class="events-header">
+                    <h2 class="events-title">upcoming events</h2>
+                    <a href="#" class="see-all-btn">see all</a>
+                </div>
+
+                <div class="events-grid">
+                    <div class="events-container">
+                        <article class="event-card">
+                            <div class="event-content">
+                                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/620721550b98291e1ae91eda041469e7b769cefe?placeholderIfAbsent=true&apiKey=9dc4f8adc48346e396b1d43abddb888e" class="event-image" alt="Movie Night Event" />
+                                <div class="event-details">
+                                    Dec 10, 2024<br />Movie Night
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="event-card">
+                            <div class="event-content">
+                                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/7647387879f880e027a4dda53cab0e690c26655b?placeholderIfAbsent=true&apiKey=9dc4f8adc48346e396b1d43abddb888e" class="event-image" alt="Movie Night Event" />
+                                <div class="event-details">
+                                    Dec 10, 2024<br />Movie Night
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="event-card">
+                            <div class="event-content">
+                                <div class="event-image-grid">
+                                    <div class="image-grid-container">
+                                        <div class="image-grid-main">
+                                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6e9dda1873b0f9aba4f0e68fcb64cdb8d9cd417e?placeholderIfAbsent=true&apiKey=9dc4f8adc48346e396b1d43abddb888e" class="grid-image-large" alt="Event Image" />
+                                        </div>
+                                        <div class="image-grid-side">
+                                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/e00bc23402fcb84ae727a78198391e06f2d603bc?placeholderIfAbsent=true&apiKey=9dc4f8adc48346e396b1d43abddb888e" class="grid-image-small" alt="Event Image" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event-details">
+                                    Dec 10, 2024<br />Movie Night
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="footer-section">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f912542dbec05a376d5313da4c57771f9eb8a6e2?placeholderIfAbsent=true&apiKey=9dc4f8adc48346e396b1d43abddb888e" class="footer-image" alt="Food and friends" />
+                <h2 class="footer-title">food and friends for everyone</h2>
+                <a href="#" class="join-btn">about</a>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        (() => {
+            const state = {};
+
+            let context = null;
+            let nodesToDestroy = [];
+            let pendingUpdate = false;
+
+            function destroyAnyNodes() {
+                nodesToDestroy.forEach((el) => el.remove());
+                nodesToDestroy = [];
+            }
+
+            function update() {
+                if (pendingUpdate === true) {
+                    return;
+                }
+                pendingUpdate = true;
+
+                document.querySelectorAll(".events-grid").forEach((el) => {
+                    el.setAttribute("space", 19);
+                });
+
+                document.querySelectorAll(".image-grid-container").forEach((el) => {
+                    el.setAttribute("space", 0);
+                });
+
+                destroyAnyNodes();
+                pendingUpdate = false;
+            }
+
+            update();
+        })();
+    </script>
+</body>
+</html>
+
+{% endblock %}

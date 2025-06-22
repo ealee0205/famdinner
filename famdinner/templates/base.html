@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Fam Dinner</title>
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        <header class="header">
+            <nav class="header-nav">
+                <a href="{{ url_for('main.home') }}">
+                    <h1 class="site-title">ethan's family dinner</h1>
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="#" class="nav-link">about</a></li>
+                    <li><a href="#" class="nav-link">events</a></li>
+                    {% if current_user.admin %}
+                    <li><a href="{{ url_for('admin.create_event') }}" class="nav-link"> create event</a></li>
+                    {% endif %}
+                    <li><a href="#" class="nav-link">contact</a></li>
+                </ul>
+            </nav>
+            {% if current_user.is_authenticated: %}
+            <div class="user-menu">
+                {% if current_user.photo %}
+                <img src="{{ url_for('static', filename='images/photo-' ~ current_user.photo.id ~ '.' ~ current_user.photo.file_extension) }}" alt="Profile photo" class="profile-image">
+                {% else %}
+                <img src="{{ url_for('static', filename='images/default.jpg') }}" alt="Default profile photo" class="profile-image">
+                {% endif %}
+                <div id="user-dropdown" class="dropdown-menu">
+                    <a href="{{ url_for('auth.logout') }}">Logout</a>
+                    <a href="{{ url_for('main.profile') }}">Profile</a>
+                </div>
+            </div>
+            {% endif %}
+            
+        </header>
+
+        <section class="content">
+            {% block content %}{% endblock %}
+        </section>
+        <footer><small>Developed for Ethan's Family Dinner</small></footer>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const userMenu = document.querySelector(".user-menu");
+                const dropdownMenu = document.querySelector("#user-dropdown");
+            
+                if (userMenu) {
+                    userMenu.addEventListener("click", () => {
+                        userMenu.classList.toggle("show");
+                    });
+                }
+            
+                // Close the menu if clicked outside
+                document.addEventListener("click", (event) => {
+                    if (!userMenu.contains(event.target)) {
+                        userMenu.classList.remove("show");
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

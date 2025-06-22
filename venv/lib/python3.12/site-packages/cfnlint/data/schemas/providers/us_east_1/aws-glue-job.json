@@ -1,0 +1,191 @@
+{
+ "additionalProperties": false,
+ "createOnlyProperties": [
+  "/properties/Name"
+ ],
+ "definitions": {
+  "ConnectionsList": {
+   "additionalProperties": false,
+   "properties": {
+    "Connections": {
+     "items": {
+      "type": "string"
+     },
+     "type": "array",
+     "uniqueItems": false
+    }
+   },
+   "type": "object"
+  },
+  "DefaultArguments": {
+   "additionalProperties": false,
+   "properties": {
+    "Key": {
+     "type": "string"
+    },
+    "Value": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "ExecutionProperty": {
+   "additionalProperties": false,
+   "properties": {
+    "MaxConcurrentRuns": {
+     "type": "number"
+    }
+   },
+   "type": "object"
+  },
+  "JobCommand": {
+   "additionalProperties": false,
+   "properties": {
+    "Name": {
+     "type": "string"
+    },
+    "PythonVersion": {
+     "type": "string"
+    },
+    "Runtime": {
+     "type": "string"
+    },
+    "ScriptLocation": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "NonOverridableArguments": {
+   "additionalProperties": false,
+   "properties": {
+    "Key": {
+     "type": "string"
+    },
+    "Value": {
+     "type": "string"
+    }
+   },
+   "type": "object"
+  },
+  "NotificationProperty": {
+   "additionalProperties": false,
+   "properties": {
+    "NotifyDelayAfter": {
+     "type": "integer"
+    }
+   },
+   "type": "object"
+  }
+ },
+ "primaryIdentifier": [
+  "/properties/Name"
+ ],
+ "properties": {
+  "AllocatedCapacity": {
+   "type": "number"
+  },
+  "Command": {
+   "$ref": "#/definitions/JobCommand"
+  },
+  "Connections": {
+   "$ref": "#/definitions/ConnectionsList"
+  },
+  "DefaultArguments": {
+   "format": "json",
+   "type": [
+    "object",
+    "string"
+   ]
+  },
+  "Description": {
+   "type": "string"
+  },
+  "ExecutionClass": {
+   "type": "string"
+  },
+  "ExecutionProperty": {
+   "$ref": "#/definitions/ExecutionProperty"
+  },
+  "GlueVersion": {
+   "type": "string"
+  },
+  "JobMode": {
+   "type": "string"
+  },
+  "JobRunQueuingEnabled": {
+   "type": "boolean"
+  },
+  "LogUri": {
+   "type": "string"
+  },
+  "MaintenanceWindow": {
+   "type": "string"
+  },
+  "MaxCapacity": {
+   "type": "number"
+  },
+  "MaxRetries": {
+   "type": "number"
+  },
+  "Name": {
+   "type": "string"
+  },
+  "NonOverridableArguments": {
+   "format": "json",
+   "type": [
+    "object",
+    "string"
+   ]
+  },
+  "NotificationProperty": {
+   "$ref": "#/definitions/NotificationProperty"
+  },
+  "NumberOfWorkers": {
+   "maximum": 299,
+   "minimum": 0,
+   "type": "integer"
+  },
+  "Role": {
+   "type": "string"
+  },
+  "SecurityConfiguration": {
+   "type": "string"
+  },
+  "Tags": {
+   "format": "json",
+   "type": [
+    "object",
+    "string"
+   ]
+  },
+  "Timeout": {
+   "type": "integer"
+  },
+  "WorkerType": {
+   "enum": [
+    "Standard",
+    "G.1X",
+    "G.2X",
+    "G.025X",
+    "G.4X",
+    "G.8X",
+    "Z.2X"
+   ],
+   "type": "string"
+  }
+ },
+ "required": [
+  "Role",
+  "Command"
+ ],
+ "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-resource-providers-glue.git",
+ "tagging": {
+  "cloudFormationSystemTags": false,
+  "tagOnCreate": true,
+  "tagProperty": "/properties/Tags",
+  "tagUpdatable": true,
+  "taggable": true
+ },
+ "typeName": "AWS::Glue::Job"
+}

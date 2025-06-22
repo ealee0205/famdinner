@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Profile</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin-top: 120px; }
+        .container {
+            min-width: 400;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .profile, .profile-display { padding: 15px; margin: 10px 0; }
+        .profile-display { display: none; }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 8px 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-group input[type="checkbox"] {
+            width: auto; /* Adjust checkbox width */
+            transform: scale(1.5); /* Make checkbox icon bigger */
+            margin: 10px; /* Add some margin for spacing */
+        }
+
+        .btn-submit {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+
+        .notification {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Personal Profile</h2>
+
+    <!-- Editable Profile Form Section -->
+    <form action="{{ url_for('main.save_profile')}}" id="profileForm" method="post" enctype="multipart/form-data">
+        <div class="form-group" id="profileFormSection">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required value="{{ user.name }}"><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required value="{{ user.email }}"><br><br>
+
+            <label for="mailing_list">Subscribe to Mailing List:</label>
+            <input type="checkbox" id="mailing_list" name="mailing_list" {% if user.mailing_list %}checked{% endif %}><br><br>
+
+            <label for="photo">Upload Photo:</label>
+            <input type="file" id="photo" name="photo" accept="image/jpeg,image/png"><br><br>
+
+
+            <button type="submit" class="btn-submit">Save Profile</button>
+        </div>
+    </form>
+
+    <style>
+        .pfp {
+            width: 300px; 
+            height: 300px;
+            overflow: hidden;
+            margin: 0 auto; 
+        }
+    
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center; 
+        }
+    </style>
+
+    <!-- Profile Display Section -->
+    <div class="profile-display" id="profileDisplaySection">
+        <h3>Profile Summary</h3>
+        <p><strong>Name:</strong> <span id="displayName">{{ user.name }}</span></p>
+        <p><strong>Email:</strong> <span id="displayEmail">{{ user.email }}</span></p>
+        <p><strong>Subscribed to Mailing List:</strong> <span id="displayMailingList">{{ 'Yes' if user.mailing_list else 'No' }}</span></p>
+        <p><strong>Photo:</strong></p>
+        {% if user.photo %}
+        <div class="pfp">
+            <img src="{{ url_for('static', filename='images/photo-' ~ user.photo.id ~ '.' ~ user.photo.file_extension) }}" alt="Profile photo" width="100">
+        </div>
+        {% else %}
+        <div class="pfp">
+            <img src="{{ url_for('static', filename='images/default.jpg') }}" alt="Default profile photo" width="100">
+        </div>
+        {% endif %}
+        <button onclick="editProfile()" class="btn-submit">Edit Profile</button>
+    </div>
+{% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+        <div class="notification">{{ message }}</div>
+    {% endfor %}
+    {% endwith %}
+    
+    
+    <script>
+        document.getElementById('displayName').textContent = "{{user.name}}";
+        document.getElementById('profileFormSection').style.display = 'none';
+        document.getElementById('profileDisplaySection').style.display = 'block';
+        
+        if ("{{user.photo}}" !== "") {
+            photoPath = (
+                pathlib.Path(current_app.root_path)
+                / "static"
+                / "images"
+                / "photo-'{{user.photo.id}}'.'{{user.photo.file_extension}}'"
+            );
+        } else {
+            photoPath = pathlib.Path(current_app.root_path) / "datingapp" / "static" / "images" / "default.jpg";
+        }
+        document.getElementById('displayPhoto').src = photoPath;
+        
+        function saveProfile() {
+            //Retrieve values from database
+            document.getElementById('displayName').textContent = "{{user.name}}";
+            document.getElementById('displayDescription').textContent = "{{user.description}}";
+            
+            //Display photo if uploaded
+            document.getElementById('displayPhoto').src = photoPath;
+            
+            
+            //Toggle visibility
+            document.getElementById('profileFormSection').style.display = 'none';
+            document.getElementById('profileDisplaySection').style.display = 'block';
+        }
+        
+        function editProfile() {
+            //Switch back to edit mode
+            document.getElementById('profileFormSection').style.display = 'block';
+            document.getElementById('profileDisplaySection').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+
+{% endblock %}
