@@ -23,10 +23,11 @@ href="{{ url_for('static', filename='styles.css') }}">
 
         <main class="main-content">
             <section class="hero-section">
-                <h2 class="hero-title">The COMPLEX</h2>
-                <h3 class="hero-subtitle">Open for STUDY HOURS</h3>
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/31a569e9384cf12d71f2a40b57c1986cc051df85?placeholderIfAbsent=true&apiKey=9dc4f8adc48346e396b1d43abddb888e" class="hero-image" alt="Study space" />
-                <p class="hero-hours">From 8:00 AM to 10:00 PM</p>
+                <h1 class="section-title">Current Events:</h1>
+                {% for event in ongoing_events %}
+                <h2 class="hero-title">{{ event.title }} at {{ event.location }}</h2>
+                <p class="hero-hours">From {{ event.start_date }} to {{ event.end_date }}</p>
+                {% endfor %}
             </section>
 
             <section class="notification-section">

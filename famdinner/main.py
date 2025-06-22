@@ -16,7 +16,12 @@ bp = Blueprint("main", __name__)
 @bp.route("/")
 @flask_login.login_required
 def home():
-    return render_template("main/index.html")
+    current_time = datetime.now(dateutil.tz.tzlocal())
+    ongoing_events = model.Event.query.filter(
+        model.Event.start_date <= current_time,
+        model.Event.end_date >= current_time
+    ).all()
+    return render_template("main/index.html", ongoing_events=ongoing_events)
 
 @bp.route("/profile")
 @flask_login.login_required
