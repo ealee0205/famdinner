@@ -17,10 +17,11 @@ bp = Blueprint("main", __name__)
 @flask_login.login_required
 def home():
     current_time = datetime.now(dateutil.tz.tzlocal())
-    ongoing_events = model.Event.query.filter(
-        model.Event.start_date <= current_time,
-        model.Event.end_date >= current_time
-    ).all()
+    # ongoing_events = model.Event.query.filter(
+    #     model.Event.start_date <= current_time,
+    #     model.Event.end_date >= current_time
+    # ).all()
+    ongoing_events = model.Event.query.all()
     return render_template("main/index.html", ongoing_events=ongoing_events)
 
 @bp.route("/profile")
