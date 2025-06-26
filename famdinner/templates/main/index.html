@@ -4,10 +4,6 @@
 
 <!-- AI GEN HTML and CSS -->
 
-<link rel="stylesheet"
-href="{{ url_for('static', filename='styles.css') }}">
-
-
 
 
 <!DOCTYPE html>
@@ -16,17 +12,16 @@ href="{{ url_for('static', filename='styles.css') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ethan's Family Dinner</title>
-    <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
     <div class="home">
-
         <main class="main-content">
             <section class="hero-section">
                 <h1 class="section-title">Current Events:</h1>
                 {% for event in ongoing_events %}
-                <h2 class="hero-title">{{ event.title }} at {{ event.location }}</h2>
-                <p class="hero-hours">From {{ event.start_date }} to {{ event.end_date }}</p>
+                <p class="hero-title">{{ event.organizer.name }}: {{ event.title }} at {{ event.location }}</p>
+                <p class="hero-hours">From {{ event.start_date.strftime('%I:%M %p') }} to {{ event.end_date.strftime('%I:%M %p') }}</p>
                 {% endfor %}
             </section>
 

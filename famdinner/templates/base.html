@@ -16,10 +16,8 @@
                 </a>
                 <ul class="nav-menu">
                     <li><a href="#" class="nav-link">about</a></li>
-                    <li><a href="#" class="nav-link">events</a></li>
-                    {% if current_user.admin %}
-                    <li><a href="{{ url_for('admin.create_event') }}" class="nav-link"> create event</a></li>
-                    {% endif %}
+                    <li><a href="{{ url_for('main.events') }}" class="nav-link">events</a></li>
+                    <li><a href="{{ url_for('main.create_event') }}" class="nav-link"> create event</a></li>
                     <li><a href="#" class="nav-link">contact</a></li>
                 </ul>
             </nav>

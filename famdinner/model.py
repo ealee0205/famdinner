@@ -20,6 +20,10 @@ class User(flask_login.UserMixin, db.Model):
     photo_id: Mapped[Optional[int]] = mapped_column(ForeignKey("photo.id"))
     photo: Mapped[Optional["Photo"]] = relationship(back_populates="user")
     admin: Mapped[bool] = mapped_column(Boolean, default=False)
+    events: Mapped[List["Event"]] = relationship(
+        back_populates="organizer",
+        cascade="all, delete-orphan"
+    )
 
 class Photo(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -33,3 +37,4 @@ class Event(db.Model):
     start_date: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=False)
     end_date: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=False)
     organizer_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
+    organizer: Mapped["User"] = relationship(back_populates="events")
