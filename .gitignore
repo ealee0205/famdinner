@@ -1,1 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.p~ # temp files
+*.log
+
+# Environment files
+.env*
+!env.example
+
+# Virtual environments
 venv/
+.venv/
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Flask/migrations (if using Flask-Migrate/Alembic)
+migrations/__pycache__/
+migrations/*.pyc
+migrations/versions/*.pyc
+
+# SQLite (if applicable)
+*.sqlite3
+*.db
+
+# Docker
+*.pid
+*.tar
+*.sock
+*.log
+
+# Byte-compiled files
+*.egg-info/
+dist/
+build/
+
+# OS-specific
+.DS_Store
+*.orig
