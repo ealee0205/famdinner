@@ -16,7 +16,7 @@ bp = Blueprint("main", __name__)
 @bp.route("/")
 @flask_login.login_required
 def home():
-    current_time = datetime.now(dateutil.tz.tzlocal())
+    current_time = datetime.now(dateutil.tz.gettz('America/Los_Angeles'))
     ongoing_events = model.Event.query.filter(
         model.Event.start_date <= current_time,
         model.Event.end_date >= current_time
@@ -103,6 +103,7 @@ def create_event_post():
     combined_start_str = f"{start_date_str} {start_time_str}"
     try:
         start_datetime = datetime.strptime(combined_start_str, "%B %d, %Y %I:%M %p")
+
     except ValueError:
         flash(f"Invalid start date or time format. {combined_start_str}", "error")
         return redirect(url_for("admin.create_event"))
@@ -137,6 +138,6 @@ def events():
     user = flask_login.current_user
     events = model.Event.query.filter(
         model.Event.organizer_id != user.id,
-        model.Event.end_date > datetime.now(dateutil.tz.tzlocal())
+        model.Event.end_date > datetime.now(dateutil.tz.gettz('America/Los_Angeles'))
     ).all()
     return render_template("eventview/eventview.html", events=events)
