@@ -1,29 +1,44 @@
 {% extends 'base.html' %}
 
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+{% endblock %}
+
 {% block content %}
 
-<!-- AI GEN HTML and CSS -->
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ethan's Family Dinner</title>
-
-</head>
 <body>
     <div class="home">
         <main class="main-content">
-            <section class="hero-section">
-                <h1 class="section-title">Current Events:</h1>
-                {% for event in ongoing_events %}
-                <p class="hero-title">{{ event.organizer.name }}: {{ event.title }} at {{ event.location }}</p>
-                <p class="hero-hours">From {{ event.start_date.strftime('%I:%M %p') }} to {{ event.end_date.strftime('%I:%M %p') }}</p>
-                {% endfor %}
-            </section>
+            <div class="current-events">
+            <h1 class="section-title">Current Events:</h1>
+                <section class="event-section">
+                    {% for event in ongoing_events %}
+                    <div class="event-row">
+                        <div class="event-image-container">
+                            {% if event.organizer.photo %}
+                            <div>
+                            <img class ="event-image" src="{{ url_for('static', filename='images/photo-' ~ event.organizer.photo.id ~ '.' ~ event.organizer.photo.file_extension) }}"
+                                alt="Profile photo" width="100">
+                            </div>
+                            {% else %}
+                            <div>
+                            <img class ="event-image" src="{{ url_for('static', filename='images/default.jpg') }}"
+                                alt="Default profile photo" width="100">
+                            </div>
+                            {% endif %}
+                            <p class="event-organizer">{{ event.organizer.name }}</p>
+                
+                        </div>
+                        <div class="event-content">
+                            <p class="hero-title">{{ event.title }} <span class="small-font-weight">at</span> {{ event.location }}</p>
+                            <p class="hero-hours">From {{ event.start_date.strftime('%I:%M %p') }} to {{ event.end_date.strftime('%I:%M %p') }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </section>
+            </div>
 
             <section class="notification-section">
                 <div class="notification-content">
@@ -35,7 +50,7 @@
             <section class="events-section">
                 <div class="events-header">
                     <h2 class="events-title">upcoming events</h2>
-                    <a href="#" class="see-all-btn">see all</a>
+                    <a href="{{ url_for('main.events') }}" class="see-all-btn">see all</a>
                 </div>
 
                 <div class="events-grid">
@@ -60,16 +75,7 @@
 
                         <article class="event-card">
                             <div class="event-content">
-                                <div class="event-image-grid">
-                                    <div class="image-grid-container">
-                                        <div class="image-grid-main">
-                                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6e9dda1873b0f9aba4f0e68fcb64cdb8d9cd417e?placeholderIfAbsent=true&apiKey=9dc4f8adc48346e396b1d43abddb888e" class="grid-image-large" alt="Event Image" />
-                                        </div>
-                                        <div class="image-grid-side">
-                                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/e00bc23402fcb84ae727a78198391e06f2d603bc?placeholderIfAbsent=true&apiKey=9dc4f8adc48346e396b1d43abddb888e" class="grid-image-small" alt="Event Image" />
-                                        </div>
-                                    </div>
-                                </div>
+                                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6e9dda1873b0f9aba4f0e68fcb64cdb8d9cd417e?placeholderIfAbsent=true&apiKey=9dc4f8adc48346e396b1d43abddb888e" class="event-image" alt="Event Image" />
                                 <div class="event-details">
                                     Dec 10, 2024<br />Movie Night
                                 </div>

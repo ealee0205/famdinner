@@ -435,15 +435,6 @@ body {
     width: 100%;
 }
 
-.hero-title {
-    color: rgba(0, 0, 0, 1);
-    font-size: 30px;
-    font-family: Montserrat, -apple-system, Roboto, Helvetica, sans-serif;
-    font-weight: 500;
-    letter-spacing: -0.45px;
-    text-align: center;
-    margin: 92px 0 0 0;
-}
 
 @media (max-width: 991px) {
     .hero-title {

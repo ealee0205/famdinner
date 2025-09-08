@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "5001:5000"
+    env_file:
+      - .env.dev  # Change to .env.prod in production
+    volumes:
+      - .:/app
+    command: flask run --host=0.0.0.0
+  
