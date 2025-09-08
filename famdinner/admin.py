@@ -21,15 +21,12 @@ class Base(DeclarativeBase):
   pass
 
 
-def create_admin():
-    password = "admin"
+def create_admin(name, email, password):
     password_hash = generate_password_hash(password)
     
     from . import model
 
     admin_user = model.User(
-        email="ealee0205@gmail.com",
-        name="Ethan",
         password=password_hash,
         mailing_list=True,
         admin=True
